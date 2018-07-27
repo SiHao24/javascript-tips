@@ -135,3 +135,187 @@
     const getScrollPos = (el = window) => ({x: (el.pageXOffset !== undefined) ? el.pageXOffset : el. scrollLeft, y: (el.pageYOffset !== undefined) ? el.pageYOffset : el.scrollTop});
     getScrollPos() // {x: 0, y: 200}
 ```
+### 22.最大公约数(GCD)
+使用递归。基本情况是当y大于0时，在这种情况下，返回x。否则，返回y的GCD和x/y的其余部分。
+```javascript
+    const gcd = (x, y) => !y ? x : gcd(y, x % y);
+    gcd(8, 36); // 4
+```
+### 23.head of list
+返回arr[0]
+```javascript
+    const head = arr => arr[0];
+    head([1, 2, 3]); // 1   
+```
+### 24.list初始化
+返回arr.slice(0, -1)
+```javascript
+    const initial = arr => arr.slice(0, -1);
+    initial([1, 2, 3]); // [1, 2]
+```
+### 25.用range初始化数组
+使用Array(end - start)创建所需长度的数组，使用map()来填充范围中的所需值，可以省略start使用默认值为0.
+```javascript
+    const initializeArrayRange = (encodeURI, start = 0) => 
+    Array.apply(null, Array(end - start)).map((v, i) => i + start);
+    initializeArrayRange(5); // [0, 1, 2, 3, 4]
+```
+### 26.用值初始化数组
+使用Array(n)创建所需长度的数组，fill(v)以填充所需的值，可以忽略value使用默认值0.
+```javascript
+    const initializeArray = (n, value = 0) => Array(n).fill(value);
+    initializeArray(5, 2); // [2, 2, 2, 2, 2]
+```
+### 27.列表的最后
+返回arr.slice(-1)[0]
+```javascript
+    const last = arr => arr.slice(-1)[0] // arr[length - 1]
+    last([1, 2, 3]); // 3
+```
+### 28.测试功能所花费的时间
+使用performance.now()获取函数的开始和结束时间，console.log()所花费的时间。第一个参数是函数名，随后的参数传递给函数。
+```javascript
+    onst timeTaken = callback => {
+        console.time('timeTaken');
+        const r = callback();
+        console.timeEnd('timeTaken');
+        return r;
+    };
+    timeTaken(() => Math.pow(2, 10)) // 1024 // (logged): timeTaken: 0.02099609375ms
+```
+### 29.来自键值对的对象
+使用Array.reduce()来创建和组合键值对
+```javascript
+    const objectFromParis = arr => arr.reduce((a, v) => (a[v[0]] = v[1], a), {});
+    objectFromParis([['a', 1], ['b', 2]]) // { a: 1, b: 2 }
+```
+### 30.管道
+使用Array.reduce()通过函数传递数值
+```javascript
+    const pipe = (...funcs) => args => funcs.reduce((acc, func) => func(acc), arg);
+    pipe(btoa, x => x.toUpperCase())('Test') // "VGVZDA=="
+```
+### 31.Powerset
+使用reduce()与map()结合来遍历元素，并将其组合成包含所有组合的数组。
+```javascript
+    const powerset = arr =>
+    arr.reduce((a, v) => a.concat(a.map(r => [v].concat(r))), [[]]);
+    powerset([1, 2]); // [[], [1], [2], [2, 1]]
+```
+### 32.范围内的随机整数
+使用Math.random()生成一个随机数并将其映射到所需的范围，使用Math.floor()使其成为一个整数。
+```javascript
+    const randomInterInRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    randomInterInRange(0 ,5) // 1(随机的)
+```
+### 33.范围内的随机数
+使用Math.random()生成一个随机数，使用乘法将其映射到所需的范围内。
+```javascript
+    const randomInRange = (min, max) => Math.random() * (max - min) + min;
+    randomInRange(2, 10); // 7.062283291358339
+```
+### 34.随机化数组的顺序
+使用sort()重新排序元素，利用Math.random()来随机排序。   
+```javascript
+    const shuffle = arr => arr.sort(() => Math.random() - 0.5);
+    shuffle([1, 2, 3]); //   [1, 3, 2]
+```
+### 35.重定向到url
+使用window.location.href或window.location.replace()重定向到url。传递第二个参数来模拟链接点击(true-default)或http重定向(false).
+```javascript
+    const rediret = (url, asLink = true) =>
+    asLink ? window.location.href = url : window.location.replace(url);
+    rediret('http://www.baidu.com') 
+```
+### 36.反转一个字符串
+使用数组解构和Array.reverse()来颠倒字符串中的字符顺序。合并字符以使用join('')获取字符串。
+```javascript
+    const reverseString = str => [...str].reverse().join('');
+    reverseString('footer'); // "retoof"
+```
+### 37.RGB十六进制
+使用按位左移运算符(<<)和toString(16),然后padStart(6, "0")将给定的RGB参数转换为十六进制字符串以获得6位十六进制值。
+```javascript
+    const rgbToHex = (r, g, b) => ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');
+    rgbToHex(255, 165, 1); // 'ffa501"
+```
+### 38.滚动到顶部
+使用document.documentElement.scrollTop或document.body.scrollTop获取到顶部的距离，从顶部滚动一小部分距离，使用window.requestAnimationFrame()来滚动。
+```javascript
+    const scrollToTop = _ => {
+        const c = document.documentElement.scrollTop || document.body.scrollTop;
+        if(c > 0) {
+            window.requestAnimationFrame(scrollToTop);
+            window.scrollTo(0, c - c / 8);
+        } 
+    }
+    scrollToTop();
+```
+### 39.随机数组值
+使用Array.map()和Math.random()创建一个随机值得数组。使用Array.sort()根据随机值对原始数组的元素进行排序。
+```javascript   
+    const randomArray = arr => {
+        let r = arr.map(Math.random());
+        return arr.sort((a, b) => r[a] - r[b]);
+    }
+```
+### 40.数组之间的相似性
+使用filter移除不是values的一部分值，使用includes()确定。
+```javascript
+    const similarity = (arr, values) => arr.filter(v => values.includes(v));
+    similarity([1, 2, 3], [1, 2, 4]); // [1, 2]
+```
+### 41.按字符串排序(按字母顺序排列)
+使用split('')分个字符串，sort()localeCompare(), 使用join('')重新组合。
+```javascript
+    const sortCharactersInString = str => 
+    str.split('').sort((a, b) => a.localeCompare(b)).join('');
+    sortCharactersInString('cabbage') // aabbceg
+```
+### 42.数组总和
+使用reduce()将每个值添加到累加器，初始化之为0.
+```javascript
+    const sum = arr => arr.reduce((acc, val) => acc + val, 0);
+    sum([1, 2, 3, 4]); // 10
+```
+### 43.交换两个变量的数值
+使用数组解构来交换两个变量之间的值。
+```javascript
+    [varA, varB] = [varB, varA];
+    [x, y] = [y, x]
+```
+### 44.列表的tail
+返回arr.slice(1)
+```javascript
+    const tail = arr => arr.length > 1 ? arr.slice(1) : arr;
+    tail([1, 2, 3]); // [2, 3]
+    tail([1]); // [1]
+```
+### 45.数组唯一值
+使用ES6 Set和...rest操作符去掉所有重复的值。
+```javascript
+    const unique = arr => [...new Set(arr)];
+    unique([1, 2, 2, 3, 4, 4, 5]); // [1, 2, 3, 4, 5]
+```
+### 46.url参数
+使用match()与适当的正则表达式来获得所有键值对，适当的map().使用Object.assign()和spread运算符(...)将所有键值对组合到一个对象中，将location.search作为参数传递给url。
+```javascript
+    const getUrlParameters = url => 
+    url.match(/([^?=&]+)(=([^&]*))/g).reduce((a, v) =>
+        (a[v.slice(0, v.indexOf('='))] = v.slice(v.indexOf('=') + 1), a), {});
+
+    getUrlParameters('http://url.com/page?name=Adam&surname=Smith'); // { name: 'Adam', surname: 'Smith' }
+```
+### 47.UUID生成器
+使用crypto API生成符合RFC4122版本的UUID。
+```javascript
+    const uuid = _ =>
+    ([1e7] + -1e3 + -4e3 + -8e3 + 1e11).replcae(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
+    uuid(); // '7982fcfe-5721-4632-bede-6000885be57d'
+```
+### 48.验证数字
+使用!isNaN和parseFloat()来检查参数是否是一个数字，使用isFinite()来检查数字是否是有限的。
+```javascript
+    const validateNumber = n => !isNaN(parseFloat(n)) && isFinite(n) && Number(n) == n;
+    validateNumber('10'); // true
+```
