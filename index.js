@@ -184,3 +184,40 @@ const similarity = (arr, values) => arr.filter(v => values.includes(v));
 similarity([1, 2, 3], [1, 2, 4]); // [1, 2]
 
 // 按字符串排序(按字母顺序排序)
+const sortCharactersInString = str => 
+    str.split('').sort((a, b) => a.localeCompare(b)).join('');
+sortCharactersInString('cabbage') // aabbceg
+
+// 数组总和
+const sum = arr => arr.reduce((acc, val) => acc + val, 0);
+sum([1, 2, 3, 4]); // 10
+
+// 交换两个变量的值
+[varA, varB] = [varB, varA];
+[x, y] = [y, x]
+
+
+// 列表的tail
+const tail = arr => arr.length > 1 ? arr.slice(1) : arr;
+tail([1, 2, 3]); // [2, 3]
+tail([1]); // [1]
+
+// 数组的唯一值
+const unique = arr => [...new Set(arr)];
+unique([1, 2, 2, 3, 4, 4, 5]); // [1, 2, 3, 4, 5]
+
+// url参数
+const getUrlParameters = url => 
+    url.match(/([^?=&]+)(=([^&]*))/g).reduce((a, v) =>
+        (a[v.slice(0, v.indexOf('='))] = v.slice(v.indexOf('=') + 1), a), {});
+
+getUrlParameters('http://url.com/page?name=Adam&surname=Smith'); // { name: 'Adam', surname: 'Smith' }
+
+// UUID生成器
+const uuid = _ =>
+    ([1e7] + -1e3 + -4e3 + -8e3 + 1e11).replcae(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
+uuid(); // '7982fcfe-5721-4632-bede-6000885be57d'
+
+// 验证数字
+const validateNumber = n => !isNaN(parseFloat(n)) && isFinite(n) && Number(n) == n;
+validateNumber('10'); // true
