@@ -57,3 +57,81 @@
     curry(Math.pow)(2)(10); // 1024
     curry(Math.min, 3)(10)(50)(2); // 2
 ```
+### 9.Deep flatten array
+使用递归，使用reduce()来获取所有不是数组的元素，flatten 每个元素都是数组。   
+```javascript
+    const deepFlatten = arr => arr.reduce((a, v) => a.concat(Array.isArray(v) ? deepFlatten(v) : v), []);
+    deepFlatten([1, [2], [[3], 4], 5]); // [1, 2, 3, 4, 5]
+```
+### 10.数组之间的区别
+从b创建一个Set，然后再a上使用Array.filter(),只保留b中不包含的值。
+```javascript
+    const difference = (a, b) => { const s = new Set(b); return a.filter(x => !s.has(x));};
+    difference([1, 2, 3], [1, 2]); // [3]
+```
+### 11.两点之间的区别
+使用Math.hypot()计算两点之间的欧几里得距离。
+```javascript
+    const distance = (x0, y0, x1, y1) => Math.hypot(x1 - x0, y1 - y0);
+    distance(1, 1, 2, 3); // 2.23606797749979
+```
+### 12.可以按数字整除
+使用模运算符(%)来检查余数是否等于0.
+```javascript
+    const isEven = num => num % 2 === 0;
+    isEven(3); // false
+```
+### 13.转移正则表达式
+使用replace()来转义特殊字符
+```javascript
+    const escapeRegExp = str => replace(/[.*+?^${}()|[\]\\]/g, '\\$&';
+    escapeRegExp('(test)'); //"(test)"
+```
+### 14.偶数或奇数
+使用Math.abs()讲逻辑扩展为负数，使用模运算符进行检查。如果数字是偶数，则返回true，如果数字是奇数，则返回false。
+```javascript
+    const isEven = num => num % 2 === 0;
+    isEven(3); // false
+```
+### 15.阶乘
+使用递归，如果n小于或等于1，则返回1，否则返回n和n-1的阶乘的乘积。
+```javascript   
+    const factorial = n => n <= 1 ? 1 : n * factorial(n - 1);
+    factorial(6); // 720
+```
+### 16.斐波那契数组生成器
+创建一个特定长度的空数组，初始化前两个值(0和1)。使用Array.reduce()向数组中添加值，后面的一个数等于前面两个数相加之和（前两个除外）。
+```javascript
+    const fibonacci = n => Array(n).fill(0).reduce((acc, val, i) => acc.concat(i > 1 ? acc[i - 1] + acc[i - 2]: i), []);
+    fibonacci(5); // [0, 1, 1, 2, 3]
+```
+### 17.过滤数组中的非唯一值
+将Array.filter()用于仅包含唯一值得数组
+```javascript
+    const filterNonUnique = arr => arr.filter(i > arr.indexOf(i) === arr.lastIndexOf(i));
+    filterNonUnique([1, 2, 2, 3, 4, 4, 5]); // [1, 3, 5]
+```
+### 18.Flatten数组
+使用reduce()来获取数组中的所有元素，并使用concat()来使他们flatten。
+```javascript
+    const flatten = arr => arr.reduce((a, v) => a.concat(v), []);
+    flatten([1, [2], 3, 4]); // [1, 2, 3, 4]
+```
+### 19.从数组中或取最大值
+使用Math.max()与spread运算符(...)结合得到数组中的最大值。
+```javascript
+    const arrayMax = arr => Math.max(...arr);
+    arrayMax([10, 2, 5]); // 10
+```
+### 20.从数组中或取最小值
+使用Math.min()与spread运算符(...)结合得到数组中的最小值。
+```javascript
+    const arrayMix = arr => Math.min(...arr);
+    arrayMix([10, 2, 5]); // 2
+```
+### 21.获取滚动位置
+如果已定义，请使用pageXOffset和pageYOffset，否则使用scrollLeft和scrollTop，可以省略el来使用window的默认值。
+```javascript
+    const getScrollPos = (el = window) => ({x: (el.pageXOffset !== undefined) ? el.pageXOffset : el. scrollLeft, y: (el.pageYOffset !== undefined) ? el.pageYOffset : el.scrollTop});
+    getScrollPos() // {x: 0, y: 200}
+```

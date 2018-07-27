@@ -51,6 +51,10 @@ difference([1, 2, 3], [1, 2]); // [3]
 const distance = (x0, y0, x1, y1) => Math.hypot(x1 - x0, y1 - y0);
 distance(1, 1, 2, 3); // 2.23606797749979
 
+// 可以按数字整除
+const isDivisible = (dividend, divisor) => dividend % divisor === 0;
+isDivisible(6, 3) // true
+
 // 转义正则表达式
 const escapeRegExp = str => replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 escapeRegExp('(test)'); //"(test)"
